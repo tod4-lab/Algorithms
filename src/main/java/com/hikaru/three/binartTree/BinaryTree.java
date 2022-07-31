@@ -1,8 +1,6 @@
-package com.hikaru.three;
+package com.hikaru.three.binartTree;
 
-import sun.reflect.generics.tree.Tree;
-
-import java.util.Queue;
+import java.util.Stack;
 
 public class BinaryTree {
     public class TreeNode {
@@ -15,23 +13,6 @@ public class BinaryTree {
         }
     }
 
-    public void levelOrderPrint(TreeNode root) {
-        TreeNode[] queue = new TreeNode[5001];
-        int front = 0;
-        int rear = 0;
-        TreeNode p = root;
-        queue[rear++] = p;
-        while(rear != front) {
-            TreeNode temp = queue[front++];
-            System.out.println(temp.val);
-            if(temp.left!=null) {
-                queue[rear++] = temp.left;
-            }
-            if(temp.right!=null) {
-                queue[rear++] = temp.right;
-            }
-        }
-    }
 
     // 根据前序和中序序列构造二叉树
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -62,8 +43,8 @@ public class BinaryTree {
         }
         if(len2!=0) {
             for (int i = 0; i < len2; i++) {
-                rightInOrder[i] = inorder[i + rootIndex + 1];
-                rightPreOrder[i] = preorder[i + rootIndex + 1];
+                rightInOrder[i] = inorder[i + len1 + 1];
+                rightPreOrder[i] = preorder[i + len1 + 1];
             }
             rightTree = buildTree(rightPreOrder, rightInOrder);
         }
@@ -77,6 +58,6 @@ public class BinaryTree {
         int[] preOrder = {3,9,20,15,7};
         int[] inOrder = {9,3,15,20,7};
         TreeNode root = binaryTree.buildTree(preOrder, inOrder);
-        binaryTree.levelOrderPrint(root);
+        PostOrderIter.postOrderIterPrint(root);
     }
 }
